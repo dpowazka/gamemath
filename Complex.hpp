@@ -6,18 +6,26 @@
 template <typename T>
 class Complex {
 public:
-	T x;
-	T y;
+	T x, y;
 public:
 	Complex(const T& px, const T& py) : x(px), y(py)
 	{
 	}
 
-	float length() const {
-		return (float)hypot(x, y);
+	Complex(const Complex &other) : x(other.x), y(other.y) 
+	{
 	}
 
-	float dot_product(const Complex& other) const {
+	void operator=(const Complex &other) {
+		this->x = other.x;
+		this->y = other.y;
+	}
+
+	T length() const {
+		return (T)hypot(x, y);
+	}
+
+	T dot_product(const Complex& other) const {
 		return x*other.x + y*other.y;
 	}
 
