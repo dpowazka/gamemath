@@ -3,6 +3,10 @@
 #include <iostream>
 
 //TODO: Write some tests.
+
+// Return types are not const because:
+// http://stackoverflow.com/questions/8716330/purpose-of-returning-by-const-value
+
 template <typename T>
 class Complex {
 public:
@@ -29,40 +33,40 @@ public:
 		return x*other.x + y*other.y;
 	}
 
-	Complex normalized() const {
+	const Complex normalized() const {
 		T l = length();
 		return Complex(x / l, y / l);
 	}
 
-	Complex complement() const {
+	const Complex complement() const {
 		return Complex(x, -y);
 	}
 
-	Complex operator-() const {
+	const Complex operator-() const {
 		return Complex(-x, -y);
 	}
 
-	Complex operator+(const Complex& other) const {
+	const Complex operator+(const Complex& other) const {
 		return Complex(x + other.x, y + other.y);
 	}
 
-	Complex operator-(const Complex& other) const {
+	const Complex operator-(const Complex& other) const {
 		return Complex(x - other.x, y - other.y);
 	}
 
-	Complex operator*(const Complex& other) const {
+	const Complex operator*(const Complex& other) const {
 		return Complex(x*other.x - y*other.y, x*other.y + y*other.x);
 	}
 
-	Complex operator*(const T& number) const {
+	const Complex operator*(const T& number) const {
 		return Complex(x*number, y*number);
 	}
 
-	Complex operator/(const T& number) const {
+	const Complex operator/(const T& number) const {
 		return Complex(x / number, y / number);
 	}
 
-	Complex operator/(const Complex& other) const {
+	const Complex operator/(const Complex& other) const {
 		return (*this) * other.complement() / sqr(other.length());
 	}
 
@@ -81,7 +85,7 @@ public:
 };
 
 template <typename T, typename S>
-Complex<T> operator*(const S& number, const Complex<T>& complex) {
+const Complex<T> operator*(const S& number, const Complex<T>& complex) {
 	return complex*number;
 }
 
