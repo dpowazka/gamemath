@@ -3,8 +3,6 @@
 #include <iostream>
 
 //TODO: Write some tests.
-//TODO: operators == and !=
-
 template <typename T>
 class Complex {
 public:
@@ -15,61 +13,61 @@ public:
 	{
 	}
 
-	float length() {
+	float length() const {
 		return (float)hypot(x, y);
 	}
 
-	float dot_product(const Complex& other) {
+	float dot_product(const Complex& other) const {
 		return x*other.x + y*other.y;
 	}
 
-	Complex normalized() {
+	Complex normalized() const {
 		T l = length();
 		return Complex(x / l, y / l);
 	}
 
-	Complex complement() {
+	Complex complement() const {
 		return Complex(x, -y);
 	}
 
-	Complex operator-() {
+	Complex operator-() const {
 		return Complex(-x, -y);
 	}
 
-	Complex operator+(const Complex& other) {
+	Complex operator+(const Complex& other) const {
 		return Complex(x + other.x, y + other.y);
 	}
 
-	Complex operator-(const Complex& other) {
+	Complex operator-(const Complex& other) const {
 		return Complex(x - other.x, y - other.y);
 	}
 
-	Complex operator*(const Complex& other) {
+	Complex operator*(const Complex& other) const {
 		return Complex(x*other.x - y*other.y, x*other.y + y*other.x);
 	}
 
-	Complex operator*(const T& number) {
+	Complex operator*(const T& number) const {
 		return Complex(x*number, y*number);
 	}
 
-	Complex operator/(const T& number) {
+	Complex operator/(const T& number) const {
 		return Complex(x / number, y / number);
 	}
 
-	Complex operator/(const Complex& other) {
+	Complex operator/(const Complex& other) const {
 		return (*this) * other.complement() / sqr(other.length());
 	}
 
-	void operator+=(const Complex& other) {
+	void operator+=(const Complex& other) const {
 		this->x += other.x;
 		this->y += other.y;
 	}
 
-	bool operator==(const Complex& other) {
+	bool operator==(const Complex& other) const {
 		return this->x == other.x && this->y == other.y;
 	}
 
-	bool operator!=(const Complex& other) {
+	bool operator!=(const Complex& other) const {
 		return ! ((*this) == other);
 	}
 };
