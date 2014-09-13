@@ -2,11 +2,6 @@
 #include <math.h> //hypot
 #include <iostream>
 
-//TODO: Write some tests.
-
-// Return types are not const because:
-// http://stackoverflow.com/questions/8716330/purpose-of-returning-by-const-value
-
 template <typename T>
 class Complex {
 public:
@@ -25,15 +20,15 @@ public:
 		this->y = other.y;
 	}
 
-	T length() const {
+	const T length() const {
 		return (T)hypot(x, y);
 	}
 
-	T dot_product(const Complex& other) const {
+	const T dot_product(const Complex& other) const {
 		return x*other.x + y*other.y;
 	}
 
-	Complex<T> cast(const Complex &other) const {
+	const Complex<T> cast(const Complex &other) const {
 		T length = dot_product(other);
 		return normalized() * length;
 	}
@@ -72,7 +67,7 @@ public:
 	}
 
 	const Complex<T> operator/(const Complex<T>& other) const {
-		return (*this) * other.complement() / sqr(other.length());
+		return (*this) * other.complement()/ (other.length()*other.length());
 	}
 
 	void operator+=(const Complex<T>& other) const {
@@ -95,6 +90,6 @@ const Complex<T> operator*(const S& number, const Complex<T>& complex) {
 }
 
 template <typename T>
-void print(const Complex<T> &c) {
-	std::cout << "(" << c.x << ", " << c.y << ")" << std::endl;
+std::ostream& operator<<(std::ostream& os, const Complex<T> &c) {
+	os << "(" << c.x << ", " << c.y << ")" << std::endl;
 }
