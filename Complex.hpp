@@ -33,53 +33,58 @@ public:
 		return x*other.x + y*other.y;
 	}
 
-	const Complex normalized() const {
+	Complex<T> cast(const Complex &other) const {
+		T length = dot_product(other);
+		return normalized() * length;
+	}
+
+	const Complex<T> normalized() const {
 		T l = length();
 		return Complex(x / l, y / l);
 	}
 
-	const Complex complement() const {
+	const Complex<T> complement() const {
 		return Complex(x, -y);
 	}
 
-	const Complex operator-() const {
+	const Complex<T> operator-() const {
 		return Complex(-x, -y);
 	}
 
-	const Complex operator+(const Complex& other) const {
+	const Complex<T> operator+(const Complex<T>& other) const {
 		return Complex(x + other.x, y + other.y);
 	}
 
-	const Complex operator-(const Complex& other) const {
+	const Complex<T> operator-(const Complex<T>& other) const {
 		return Complex(x - other.x, y - other.y);
 	}
 
-	const Complex operator*(const Complex& other) const {
+	const Complex<T> operator*(const Complex<T>& other) const {
 		return Complex(x*other.x - y*other.y, x*other.y + y*other.x);
 	}
 
-	const Complex operator*(const T& number) const {
+	const Complex<T> operator*(const T& number) const {
 		return Complex(x*number, y*number);
 	}
 
-	const Complex operator/(const T& number) const {
+	const Complex<T> operator/(const T& number) const {
 		return Complex(x / number, y / number);
 	}
 
-	const Complex operator/(const Complex& other) const {
+	const Complex<T> operator/(const Complex<T>& other) const {
 		return (*this) * other.complement() / sqr(other.length());
 	}
 
-	void operator+=(const Complex& other) const {
+	void operator+=(const Complex<T>& other) const {
 		this->x += other.x;
 		this->y += other.y;
 	}
 
-	bool operator==(const Complex& other) const {
+	bool operator==(const Complex<T>& other) const {
 		return this->x == other.x && this->y == other.y;
 	}
 
-	bool operator!=(const Complex& other) const {
+	bool operator!=(const Complex<T>& other) const {
 		return ! ((*this) == other);
 	}
 };
